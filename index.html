@@ -1,11 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="author">
+    <title>Calebe | Sistema de Tarefas Espacial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex saepe iste voluptatem reiciendis nisi, quibusdam maiores deleniti quam aperiam repellat sapiente consequatur non, sequi odit tempore ad. Nam, nostrum odio?</p>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <i class="fas fa-rocket logo-icon"></i>
+                <h1 class="logo-text">Calebe<span>ToDo</span></h1>
+            </div>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+                <label class="switch">
+                    <input type="checkbox" id="themeSwitch">
+                    <span class="slider round"></span>
+                </label>
+                <i class="fas fa-sun"></i>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <nav class="app-nav">
+                <button class="nav-btn" id="btnAdicionar">
+                    <i class="fas fa-plus"></i>
+                    <span>Nova Tarefa</span>
+                </button>
+                <button class="nav-btn" id="btnListar">
+                    <i class="fas fa-list"></i>
+                    <span>Minhas Tarefas</span>
+                </button>
+                <button class="nav-btn" id="btnEditar">
+                    <i class="fas fa-edit"></i>
+                    <span>Editar</span>
+                </button>
+                <button class="nav-btn" id="btnConcluir">
+                    <i class="fas fa-check"></i>
+                    <span>Concluir</span>
+                </button>
+                <button class="nav-btn" id="btnExcluir">
+                    <i class="fas fa-trash"></i>
+                    <span>Excluir</span>
+                </button>
+            </nav>
+
+            <div class="content-area">
+                <!-- Formulário de Adicionar -->
+                <div id="formAdicionar" class="form-container slide-in">
+                    <div class="form-header">
+                        <h2><i class="fas fa-plus-circle"></i> Nova Tarefa</h2>
+                        <button class="close-btn" id="btnCancelarAdicionar">&times;</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="titulo"><i class="fas fa-heading"></i> Título</label>
+                        <input type="text" id="titulo" placeholder="Dê um nome para sua tarefa">
+                    </div>
+                    <div class="form-group">
+                        <label for="descricao"><i class="fas fa-align-left"></i> Descrição</label>
+                        <textarea id="descricao" placeholder="Detalhes sobre a tarefa..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-primary" id="btnConfirmarAdicionar">
+                            <i class="fas fa-paper-plane"></i> Enviar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formulário de Editar -->
+                <div id="formEditar" class="form-container slide-in">
+                    <div class="form-header">
+                        <h2><i class="fas fa-edit"></i> Editar Tarefa</h2>
+                        <button class="close-btn" id="btnCancelarEditar">&times;</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="novoTitulo"><i class="fas fa-heading"></i> Título</label>
+                        <input type="text" id="novoTitulo" placeholder="Novo título">
+                    </div>
+                    <div class="form-group">
+                        <label for="novaDescricao"><i class="fas fa-align-left"></i> Descrição</label>
+                        <textarea id="novaDescricao" placeholder="Nova descrição..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-primary" id="btnConfirmarEditar">
+                            <i class="fas fa-save"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formulário de ID -->
+                <div id="formID" class="form-container slide-in">
+                    <div class="form-header">
+                        <h2 id="tituloFormID"><i class="fas fa-key"></i> Informe o ID</h2>
+                        <button class="close-btn" id="btnCancelarID">&times;</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="idTarefa"><i class="fas fa-hashtag"></i> ID da Tarefa</label>
+                        <input type="number" id="idTarefa" placeholder="Digite o ID da tarefa">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-primary" id="btnConfirmarID">
+                            <i class="fas fa-check-circle"></i> Confirmar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lista de Tarefas -->
+                <div id="listaTarefas" class="tarefas-container">
+                    <div class="tarefas-header">
+                        <h2><i class="fas fa-tasks"></i> Minhas Tarefas</h2>
+                        <div class="tarefas-stats">
+                            <span class="stat total"><i class="fas fa-layer-group"></i> <span id="totalTarefas">0</span></span>
+                            <span class="stat concluidas"><i class="fas fa-check"></i> <span id="concluidasTarefas">0</span></span>
+                            <span class="stat pendentes"><i class="fas fa-clock"></i> <span id="pendentesTarefas">0</span></span>
+                        </div>
+                    </div>
+                    <div id="tarefas" class="tarefas-grid"></div>
+                </div>
+
+                <!-- Mensagens -->
+                <div id="mensagem" class="mensagem"></div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>© 2023 Calebe - Sistema Intergaláctico de Produtividade</p>
+            <button id="btnSair" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </footer>
+    </div>
+
+    <!-- Confetti Effect -->
+    <canvas id="confetti"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,641 @@
+:root {
+    --primary: #6c5ce7;
+    --primary-dark: #5649c0;
+    --secondary: #00cec9;
+    --accent: #fd79a8;
+    --text: #2d3436;
+    --text-light: #636e72;
+    --bg: #f9f9f9;
+    --card-bg: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+[data-theme="dark"] {
+    --primary: #a29bfe;
+    --primary-dark: #847bff;
+    --secondary: #55efc4;
+    --accent: #ff7675;
+    --text: #dfe6e9;
+    --text-light: #b2bec3;
+    --bg: #1a1a2e;
+    --card-bg: #16213e;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Background Effects */
+.stars, .twinkling {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -1;
+}
+
+.stars {
+    background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center;
+}
+
+.twinkling {
+    background: transparent url('https://i.imgur.com/XYMF4ca.png') repeat top center;
+    animation: twinkle 200s linear infinite;
+}
+
+@keyframes twinkle {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text);
+    background-color: var(--bg);
+    line-height: 1.6;
+    transition: var(--transition);
+    overflow-x: hidden;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background-color: rgba(108, 92, 231, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    animation: float 3s ease-in-out infinite;
+}
+
+.logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.logo-text span {
+    font-weight: 400;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--primary-dark);
+    transition: var(--transition);
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition);
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+.app-main {
+    display: flex;
+    flex: 1;
+}
+
+.app-nav {
+    width: 250px;
+    padding: 2rem 1rem;
+    background-color: rgba(0, 206, 201, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: none;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(253, 121, 168, 0.1));
+    color: var(--text);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.nav-btn i {
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.nav-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2);
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.2), rgba(253, 121, 168, 0.2));
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    position: relative;
+}
+
+.form-container {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    animation: slideIn 0.5s ease-out forwards;
+    display: none;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.form-header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid rgba(108, 92, 231, 0.3);
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    background-color: rgba(108, 92, 231, 0.05);
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-primary {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.tarefas-container {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.tarefas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.tarefas-header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tarefas-stats {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    background-color: rgba(108, 92, 231, 0.1);
+}
+
+.stat i {
+    font-size: 0.8rem;
+}
+
+.stat.total {
+    color: var(--primary);
+}
+
+.stat.concluidas {
+    color: var(--secondary);
+}
+
+.stat.pendentes {
+    color: var(--accent);
+}
+
+.tarefas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.tarefa {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border-left: 5px solid var(--primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.tarefa:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tarefa::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), transparent);
+    z-index: -1;
+}
+
+.tarefa.concluida {
+    border-left-color: var(--secondary);
+    opacity: 0.8;
+}
+
+.tarefa.concluida::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--secondary);
+    font-size: 1.2rem;
+}
+
+.tarefa h3 {
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.tarefa p {
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.tarefa .tarefa-id {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    background-color: rgba(108, 92, 231, 0.1);
+    border-radius: 10px;
+}
+
+.tarefa .tarefa-status {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+.tarefa .tarefa-status.pendente {
+    background-color: rgba(255, 118, 117, 0.1);
+    color: var(--accent);
+}
+
+.tarefa .tarefa-status.concluida {
+    background-color: rgba(0, 206, 201, 0.1);
+    color: var(--secondary);
+}
+
+.tarefa .tarefa-data {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    margin-top: 1rem;
+    display: block;
+}
+
+.mensagem {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out forwards;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 400px;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.mensagem i {
+    font-size: 1.2rem;
+}
+
+.mensagem.erro {
+    background-color: rgba(255, 118, 117, 0.9);
+    color: white;
+}
+
+.mensagem.sucesso {
+    background-color: rgba(0, 206, 201, 0.9);
+    color: white;
+}
+
+.app-footer {
+    padding: 1.5rem 2rem;
+    text-align: center;
+    background-color: rgba(108, 92, 231, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-footer p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.btn-logout {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.btn-logout:hover {
+    color: var(--primary);
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .app-main {
+        flex-direction: column;
+    }
+    
+    .app-nav {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 1rem;
+        justify-content: center;
+    }
+    
+    .nav-btn span {
+        display: none;
+    }
+    
+    .tarefas-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .tarefas-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .tarefas-stats {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .content-area {
+        padding: 1rem;
+    }
+    
+    .form-container, .tarefas-container {
+        padding: 1.5rem;
+    }
+    
+    .mensagem {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .tarefas-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-btn {
+        padding: 0.8rem;
+    }
+    
+    .logo-text {
+        font-size: 1.5rem;
+    }
+}
